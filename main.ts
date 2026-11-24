@@ -12,5 +12,10 @@ import { join } from "node:path";
 const EMOJI = "\u{1F3DD}"; // desert island
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
+// Guard: the entry must be exactly one emoji / one code point, nothing else.
+if ([...EMOJI].length !== 1) {
+  throw new Error("entry must be exactly one emoji");
+}
+
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "entry.txt"), EMOJI, "utf8");
